@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="author" content="Anja Strack">
+		<meta name="description" content="Ein Währungsumrechner, der seine Wechselkurse von einer externen Datenquelle bezieht.">
+		<title>Währungsumrechner</title>
+	</head>
+	<body>
+		<h1>Währungsumrechner</h1>
+		<h2>eine Übungsaufgabe von Anja Strack für die GfK-Entertainment</h2>
+		<p>Bitte füllen Sie alle mit * markierten Pflichtfelder aus.</p>
+		<div id="errorhints"></div>
+		<form>
+			<div class="field">
+				<label>Betrag*</label>
+				<input id="value" type="number" placeholder="z.B. 13,5" step="0.1"/>
+			</div>
+			<div class="field">
+				<label>Ausgangswährung*</label>
+				<select id="init_currency">
+					<option value="-1">bitte wählen</option>
+					<option value="gbp">Britisch Pfund (GBP)</option>
+					<option value="eur">Euro(EUR)</option>
+					<option value="chf">Schweizer Franken (CHF)</option>
+					<option value="usd">US Dollar (USD)</option>
+				</select> 
+			</div>
+			
+			<div class="field">
+				<label>Zielwährung*</label>
+				<select id="target_currency">
+					<option value="-1">bitte wählen</option>
+					<option value="gbp">Britisch Pfund (GBP)</option>					
+					<option value="jpy">Japanischer Jen (JPY)</option>
+					<option value="cad">Kanadischer Dollar (CAD)</option>
+					<option value="chf">Schweizer Franken (CHF)</option>
+					<option value="usd">US Dollar (USD)</option>
+				</select> 
+			</div>
+			
+			
+		</form>
+		<hr/>
+		<div id="result"></div>
+		<script src="JS/calculator.js"></script>
+	</body>
+</html>
