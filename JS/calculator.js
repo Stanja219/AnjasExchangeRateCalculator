@@ -48,6 +48,13 @@
 				}
 			}
 		}
+		
+		if (text_errors.textContent) {
+			text_errors.classList.remove("hidden");
+		} 
+		else {
+			text_errors.classList.add("hidden");
+		}
 	}
 	
 	function get_field_values() {
