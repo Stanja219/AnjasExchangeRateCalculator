@@ -1,0 +1,47 @@
+body {
+    font-family: Segoe UI light, Arial, Helvetica, sans-serif;
+	background: #f2f4f4;
+}
+
+.segment{
+	max-width: 400px;
+	margin: 2em auto;
+	padding: 1em; 
+	background: #FFFFFF;
+}
+
+.segment > h1 {
+	margin-top:0;
+}
+
+.field {
+	margin: 10px 0;
+}
+
+.field > label {
+	display:block;
+	padding-bottom:5px;
+	font-weight:bold;
+}
+
+.required {
+	color: #C70039;
+}
+
+.field > select,
+.field > input[type=number] {
+	display:block;
+	width:100%;
+	padding: 10px;
+}
+
+.field > input[type=number] {
+	width: calc(100% - 24px);
+}
+
+.error {
+	border: 1px solid #C70039;
+	padding:0.5em;
+	background: #FDE8E9;
+	color: #C70039;
+}

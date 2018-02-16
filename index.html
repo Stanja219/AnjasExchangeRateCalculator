@@ -6,44 +6,45 @@
 		<meta name="author" content="Anja Strack">
 		<meta name="description" content="Ein Währungsumrechner, der seine Wechselkurse von einer externen Datenquelle bezieht.">
 		<title>Währungsumrechner</title>
+		<link rel="stylesheet" href="CSS/style.css" />
 	</head>
 	<body>
-		<h1>Währungsumrechner</h1>
-		<h2>eine Übungsaufgabe von Anja Strack für die GfK-Entertainment</h2>
-		<p>Bitte füllen Sie alle mit * markierten Pflichtfelder aus.</p>
-		<div id="errorhints"></div>
-		<form>
-			<div class="field">
-				<label>Betrag*</label>
-				<input id="value" type="number" placeholder="z.B. 13,5" step="0.1"/>
-			</div>
-			<div class="field">
-				<label>Ausgangswährung*</label>
-				<select id="init_currency">
-					<option value="-1">bitte wählen</option>
-					<option value="gbp">Britisch Pfund (GBP)</option>
-					<option value="eur">Euro(EUR)</option>
-					<option value="chf">Schweizer Franken (CHF)</option>
-					<option value="usd">US Dollar (USD)</option>
-				</select> 
-			</div>
-			
-			<div class="field">
-				<label>Zielwährung*</label>
-				<select id="target_currency">
-					<option value="-1">bitte wählen</option>
-					<option value="gbp">Britisch Pfund (GBP)</option>					
-					<option value="jpy">Japanischer Jen (JPY)</option>
-					<option value="cad">Kanadischer Dollar (CAD)</option>
-					<option value="chf">Schweizer Franken (CHF)</option>
-					<option value="usd">US Dollar (USD)</option>
-				</select> 
-			</div>
-			
-			
-		</form>
-		<hr/>
-		<div id="result"></div>
+		<div class="segment">
+			<h1>Währungsumrechner</h1>
+			<h2>eine Übungsaufgabe von Anja Strack für die GfK-Entertainment</h2>
+			<p>Bitte füllen Sie alle mit <span class="required">*</span> markierten Pflichtfelder aus.</p>
+			<div class="error" id="errorhints"></div>
+			<form>
+				<div class="field">
+					<label>Betrag<span class="required">*</span></label>
+					<input id="value" type="number" placeholder="z.B. 13,5" step="0.1">
+				</div>
+				<div class="field">
+					<label>Ausgangswährung<span class="required">*</span></label>
+					<select id="init_currency">
+						<option value="-1">bitte wählen</option>
+						<option value="gbp">Britisch Pfund (GBP)</option>
+						<option value="eur">Euro (EUR)</option>
+						<option value="chf">Schweizer Franken (CHF)</option>
+						<option value="usd">US Dollar (USD)</option>
+					</select> 
+				</div>
+				
+				<div class="field">
+					<label>Zielwährung<span class="required">*</span></label>
+					<select id="target_currency">
+						<option value="-1">bitte wählen</option>
+						<option value="gbp">Britisch Pfund (GBP)</option>					
+						<option value="jpy">Japanischer Jen (JPY)</option>
+						<option value="cad">Kanadischer Dollar (CAD)</option>
+						<option value="chf">Schweizer Franken (CHF)</option>
+						<option value="usd">US Dollar (USD)</option>
+					</select> 
+				</div>			
+			</form>
+			<hr/>
+			<div id="result"></div>
+		</div>
 		<script src="JS/calculator.js"></script>
 	</body>
 </html>
