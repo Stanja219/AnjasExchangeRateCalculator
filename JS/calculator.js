@@ -13,6 +13,7 @@
 	var field_target_currency = document.getElementById("target_currency");
 	var text_result = document.getElementById("result");
 	var text_errors = document.getElementById("errorhints");
+	var table_exchange_rates = document.getElementById("exchange_rates");
 	
 	var chosen_value = field_value.value;
 	var chosen_init_currency = field_init_currency.value;
@@ -23,7 +24,31 @@
 	field_init_currency.addEventListener("change", renderResult);
 	field_target_currency.addEventListener("change", renderResult);
 	
-	
+	//init
+	render_exchange_rates();
+
+	function render_exchange_rates() {
+		for (var exchange_rate of exchange_rates) {
+			render_table_row(
+				table_exchange_rates, 
+				1, 
+				exchange_rate.init,
+				exchange_rate.target,
+				exchange_rate.rate
+			)
+		}
+	}
+
+	function render_table_row(table, value, init, target, result) {
+		var cell_init = '<td><div class="flag_'+ init + '"></div></td><td>' + value + ' '+ init.toLocaleUpperCase()+'</td><td>&#8596;</td>';
+		var cell_target = '<td class="text-right">'+ result + ' ' + target.toLocaleUpperCase()+'</td><td><div class="flag_'+ target +'"></div></td>';
+		var row = '<tr>'+cell_init + cell_target + '</tr>';
+		table.insertAdjacentHTML(
+			'beforeend',
+			row
+		);
+	}
+
 	function renderResult() {
 				
 		text_result.textContent = '';
