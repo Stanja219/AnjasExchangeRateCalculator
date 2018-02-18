@@ -86,7 +86,7 @@
 				render_target_currencies();
 			}
 		};
-		var url = 'http://localhost/AnjaStrack/exchange_rate_calculator/exchange_rates.php?counter=' + exchange_rate_counter;
+		var url = 'http://anja-strack.de/exchange_rate_calculator/exchange_rates.php?counter=' + exchange_rate_counter;
 		if (action === 'update') {
 			url = url + '&action=' + action;
 		}
