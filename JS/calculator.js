@@ -1,4 +1,10 @@
 (function() {
+
+	var history = [];
+	if (localStorage.history){
+		history = JSON.parse(localStorage.history);
+	}
+
 	var exchange_rate_counter = 0;
 	
 	// inital rates that will be overwritten by extern source
@@ -26,6 +32,7 @@
 	var text_errors = document.getElementById("errorhints");
 	var table_exchange_rates = document.getElementById("exchange_rates");
 	var tbody_result = document.getElementById("result");
+	var tbody_history = document.getElementById("history");
 	var button_update_exchange_rates =  document.getElementById("update_exchange_rates");
 	
 	var chosen_value = field_value.value;
@@ -40,6 +47,7 @@
 	
 	//init
 	get_exchange_rates();
+	render_history_from_local_storage();
 
 	function render_init_currencies() {
 		render_currency_options('init', field_init_currency);
@@ -140,6 +148,7 @@
 			text_errors.textContent = 'Bitte füllen Sie alle Felder mit realistischen Werten aus.';
 		}
 		else {
+			render_history_from_local_storage();
 			if (chosen_init_currency === chosen_target_currency) {
 				text_errors.textContent = 'Wählen Sie bitte 2 verschiedene Währungen aus.'
 			} 
@@ -154,6 +163,7 @@
 						calculate_result(exchange_rate)
 					);
 					tbody_result.parentNode.classList.remove("hidden");
+					save_in_local_storage(exchange_rate);
 				} 
 				else {
 					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Wechselkurse vor.'
@@ -215,7 +225,37 @@
 		var t_product = chosen_value * exchange_rate.rate
 		return t_product.toFixed(2);
 	}
+
+	function save_in_local_storage(exchange_rate) {
+		// store result in locale storage
+		history.push({
+			'value': chosen_value,
+			'init': exchange_rate.init,
+			'target': exchange_rate.target,
+			'result': calculate_result(exchange_rate)
+		});
+		localStorage.history = JSON.stringify(history);
+	}
 	
-	
+	function render_history_from_local_storage() {
+		// show the last 5 entries in revers order
+		tbody_history.innerHTML = '';
+		if (localStorage.history) {
+			var last_entries_in_reverse_order = JSON.parse(localStorage.history).slice(-5).reverse();
+			for (var history_entry of last_entries_in_reverse_order) {
+				render_table_row(
+					tbody_history, 
+					history_entry.value, 
+					history_entry.init,
+					history_entry.target,
+					history_entry.result
+				);
+			}
+			tbody_history.parentNode.classList.remove("hidden");
+		} 
+		else {
+			tbody_history.parentNode.classList.add("hidden");
+		}
+	}
   
 })();
