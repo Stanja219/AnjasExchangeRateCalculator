@@ -1,12 +1,12 @@
 (function() {
 	var exchange_rate_counter = 0;
 	var exchange_rates = [ 
-		{'init': 'eur', 'target': 'usd', 'rate': 1.2341}, 
+		{'init': 'chf', 'target': 'usd', 'rate': 1.0657},
 		{'init': 'eur', 'target': 'chf', 'rate': 1.1580},
 		{'init': 'eur', 'target': 'gbp', 'rate': 0.8906},
-		{'init': 'usd', 'target': 'jpy', 'rate': 109.5290},
-		{'init': 'chf', 'target': 'usd', 'rate': 1.0657},
-		{'init': 'gbp', 'target': 'cad', 'rate': 1.7374}
+		{'init': 'eur', 'target': 'usd', 'rate': 1.2341},
+		{'init': 'gbp', 'target': 'cad', 'rate': 1.7374},
+		{'init': 'usd', 'target': 'jpy', 'rate': 109.5290}		
 	];
 
 	var currency_names = {
@@ -80,7 +80,11 @@
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var response = JSON.parse(this.responseText);
-				exchange_rates = response.exchange_rates;
+				
+				// order exchange rates by init currency asc
+				exchange_rates = response.exchange_rates.sort(function(a, b) {
+					return a.init > b.init;
+				});
 				render_exchange_rates();
 				render_init_currencies();
 				render_target_currencies();
