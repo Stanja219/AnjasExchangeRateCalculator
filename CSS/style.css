@@ -7,17 +7,22 @@ body {
 	display:none;
 }
 
+.clear-both{
+	clear: both;
+}
+
 .segment{
-	max-width: 850px;
+	max-width: 880px;
 	margin: 0 auto;
 }
 
 .widget{
-	max-width: 400px;
+	width: 375px;
 	float:left;
-	background: #FFFFFF;
+	background: rgba(255,255,255,0.85);
 	padding: 1em;
 	margin: 1em;
+	overflow-x: auto;
 }
 
 .segment h2 {
@@ -54,6 +59,10 @@ body {
 	padding:0.5em;
 	background: #FDE8E9;
 	color: #C70039;
+}
+
+table.striped {
+	min-width: 375px;
 }
 
 table.striped td,
@@ -106,4 +115,12 @@ table.striped th {
 
 .border {
 	border: 1px solid #f2f4f4;
+}
+
+
+@media (max-width: 910px) {
+	.widget {
+		width: 95%;
+		box-sizing: border-box;
+	}
 }
