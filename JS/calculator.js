@@ -7,6 +7,15 @@
 		{'init': 'chf', 'target': 'usd', 'rate': 1.0657},
 		{'init': 'gbp', 'target': 'cad', 'rate': 1.7374}
 	];
+
+	var currency_names = {
+		'cad': 'Kanadischer Dollar',
+		'chf': 'Schweizer Franken',
+		'eur': 'Euro',
+		'gbp': 'Britisch Pfund',
+		'jpy': 'Japanischer Jen',
+		'usd': 'US Dollar'
+	}
 	
 	var field_value = document.getElementById("value"); 
 	var field_init_currency = document.getElementById("init_currency");
@@ -26,6 +35,40 @@
 	
 	//init
 	render_exchange_rates();
+	render_init_currencies();
+	render_target_currencies();
+
+	function render_init_currencies() {
+		render_currency_options('init', field_init_currency);
+	}
+
+	function render_target_currencies() {
+		render_currency_options('target', field_target_currency);
+	}
+
+	function render_currency_options(currency_type, select_field) {
+		// Append options to dropdowns depending on the availiable exchange rates
+		var currencies = [];
+		for (var exchange_rate of exchange_rates) {
+			if (currency_type == 'init') {
+				if (currencies.indexOf(exchange_rate.init) === -1){
+					currencies.push(exchange_rate.init);
+				}
+			}
+			else if (currency_type == 'target') {
+				if (currencies.indexOf(exchange_rate.target) === -1){
+					currencies.push(exchange_rate.target);
+				}
+			}
+		}
+		for (var currency of currencies) {
+			var option = '<option value="' + currency + '">' + currency_names[currency]+ ' (' + currency.toLocaleUpperCase() + ')</option>'
+			select_field.insertAdjacentHTML(
+				'beforeend',
+				option
+			);
+		}
+	}
 
 	function render_exchange_rates() {
 		for (var exchange_rate of exchange_rates) {
