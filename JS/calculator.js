@@ -34,9 +34,7 @@
 	field_target_currency.addEventListener("change", renderResult);
 	
 	//init
-	render_exchange_rates();
-	render_init_currencies();
-	render_target_currencies();
+	get_exchange_rates();
 
 	function render_init_currencies() {
 		render_currency_options('init', field_init_currency);
@@ -68,6 +66,22 @@
 				option
 			);
 		}
+	}
+
+	function get_exchange_rates() {
+		// fetch exchange rates from an extern "source"
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.responseText);
+				exchange_rates = response.exchange_rates;
+				render_exchange_rates();
+				render_init_currencies();
+				render_target_currencies();
+			}
+		};
+		xhttp.open("GET", "http://localhost/AnjaStrack/exchange_rate_calculator/exchange_rates.php?counter=1", true);
+		xhttp.send();
 	}
 
 	function render_exchange_rates() {
@@ -180,6 +194,6 @@
 		return t_product.toFixed(2);
 	}
 	
+	
   
-
 })();
