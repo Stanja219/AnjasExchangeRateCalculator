@@ -75,6 +75,10 @@ table.striped th {
 	text-align: right;
 }
 
+.text-center {
+	text-align: center;
+}
+
 .btn {
 	background:#F2F4F4;
 	padding: 1em; 
