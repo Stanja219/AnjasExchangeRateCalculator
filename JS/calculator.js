@@ -1,4 +1,5 @@
 (function() {
+	var exchange_rate_counter = 0;
 	var exchange_rates = [ 
 		{'init': 'eur', 'target': 'usd', 'rate': 1.2341}, 
 		{'init': 'eur', 'target': 'chf', 'rate': 1.1580},
@@ -23,6 +24,7 @@
 	var text_errors = document.getElementById("errorhints");
 	var table_exchange_rates = document.getElementById("exchange_rates");
 	var tbody_result = document.getElementById("result");
+	var button_update_exchange_rates =  document.getElementById("update_exchange_rates");
 	
 	var chosen_value = field_value.value;
 	var chosen_init_currency = field_init_currency.value;
@@ -32,6 +34,7 @@
 	field_value.addEventListener("change", renderResult);
 	field_init_currency.addEventListener("change", renderResult);
 	field_target_currency.addEventListener("change", renderResult);
+	button_update_exchange_rates.addEventListener("click", update_exchange_rates);
 	
 	//init
 	get_exchange_rates();
@@ -46,6 +49,8 @@
 
 	function render_currency_options(currency_type, select_field) {
 		// Append options to dropdowns depending on the availiable exchange rates
+		select_field.innerHTML = '<option value="-1">bitte wählen</option>';
+		
 		var currencies = [];
 		for (var exchange_rate of exchange_rates) {
 			if (currency_type == 'init') {
@@ -68,8 +73,9 @@
 		}
 	}
 
-	function get_exchange_rates() {
+	function get_exchange_rates(action) {
 		// fetch exchange rates from an extern "source"
+		exchange_rate_counter++;
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -80,11 +86,21 @@
 				render_target_currencies();
 			}
 		};
-		xhttp.open("GET", "http://localhost/AnjaStrack/exchange_rate_calculator/exchange_rates.php?counter=1", true);
+		var url = 'http://localhost/AnjaStrack/exchange_rate_calculator/exchange_rates.php?counter=' + exchange_rate_counter;
+		if (action === 'update') {
+			url = url + '&action=' + action;
+		}
+
+		xhttp.open("GET", url, true);
 		xhttp.send();
 	}
 
+	function update_exchange_rates() {
+		get_exchange_rates('update');
+	}
+
 	function render_exchange_rates() {
+		table_exchange_rates.innerHTML = '';
 		for (var exchange_rate of exchange_rates) {
 			render_table_row(
 				table_exchange_rates, 

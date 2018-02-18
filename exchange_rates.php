@@ -9,6 +9,18 @@
 		array('init'=> 'gbp', 'target'=> 'cad', 'rate'=> 1.7374)
 	);
 
+	$action = '';
+	if (isset($_GET['action'])) {
+		$action = $_GET['action'];
+
+		if ($action == 'update') {
+			$eur_to_jpy = array('init'=> 'eur', 'target'=> 'jpy', 'rate'=> 131.8533);
+			$eur_to_cad = array('init'=> 'eur', 'target'=> 'cad', 'rate'=> 1.5581);
+			array_push($exchange_rates, $eur_to_jpy);
+			array_push($exchange_rates, $eur_to_cad);
+		}
+	}
+
 	$result = array(
 		'exchange_rates' => $exchange_rates
 	);
