@@ -11,9 +11,9 @@
 	var field_value = document.getElementById("value"); 
 	var field_init_currency = document.getElementById("init_currency");
 	var field_target_currency = document.getElementById("target_currency");
-	var text_result = document.getElementById("result");
 	var text_errors = document.getElementById("errorhints");
 	var table_exchange_rates = document.getElementById("exchange_rates");
+	var tbody_result = document.getElementById("result");
 	
 	var chosen_value = field_value.value;
 	var chosen_init_currency = field_init_currency.value;
@@ -51,7 +51,8 @@
 
 	function renderResult() {
 				
-		text_result.textContent = '';
+		tbody_result.innerHTML = '';
+		tbody_result.parentNode.classList.add("hidden");
 		text_errors.textContent = '';
 		
 		get_field_values();
@@ -66,7 +67,14 @@
 			else {
 				var exchange_rate = find_exchange_rate();
 				if (exchange_rate) {
-					text_result.textContent = calculate_result(exchange_rate)
+					render_table_row(
+						tbody_result, 
+						chosen_value, 
+						exchange_rate.init,
+						exchange_rate.target,
+						calculate_result(exchange_rate)
+					);
+					tbody_result.parentNode.classList.remove("hidden");
 				} 
 				else {
 					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Werte vor.'
@@ -126,7 +134,7 @@
 		
 	function calculate_result(exchange_rate) {
 		var t_product = chosen_value * exchange_rate.rate
-		return t_product.toFixed(2) + ' ' + exchange_rate.target.toUpperCase();;
+		return t_product.toFixed(2);
 	}
 	
   
