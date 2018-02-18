@@ -131,7 +131,7 @@
 		get_field_values();
 
 		if (!validateFields()) {
-			text_errors.textContent = 'Bitte füllen Sie alle Felder aus';
+			text_errors.textContent = 'Bitte füllen Sie alle Felder mit realistischen Werten aus.';
 		}
 		else {
 			if (chosen_init_currency === chosen_target_currency) {
@@ -150,7 +150,7 @@
 					tbody_result.parentNode.classList.remove("hidden");
 				} 
 				else {
-					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Werte vor.'
+					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Wechselkurse vor.'
 				}
 			}
 		}
