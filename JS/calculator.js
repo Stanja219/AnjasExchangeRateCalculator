@@ -1,5 +1,7 @@
 (function() {
 	var exchange_rate_counter = 0;
+	
+	// inital rates that will be overwritten by extern source
 	var exchange_rates = [ 
 		{'init': 'chf', 'target': 'usd', 'rate': 1.0657},
 		{'init': 'eur', 'target': 'chf', 'rate': 1.1580},
@@ -85,10 +87,10 @@
 				exchange_rates = response.exchange_rates.sort(function(a, b) {
 					return a.init > b.init;
 				});
-				render_exchange_rates();
-				render_init_currencies();
-				render_target_currencies();
 			}
+			render_exchange_rates();
+			render_init_currencies();
+			render_target_currencies();
 		};
 		var url = 'http://anja-strack.de/exchange_rate_calculator/exchange_rates.php?counter=' + exchange_rate_counter;
 		if (action === 'update') {
