@@ -17,6 +17,7 @@
 		{'init': 'usd', 'target': 'jpy', 'rate': 109.5290}		
 	];
 
+	// Needs to be extended with every new country or move this mapping to the extern source
 	var currency_names = {
 		'cad': 'Kanadischer Dollar',
 		'chf': 'Schweizer Franken',
@@ -25,24 +26,26 @@
 		'jpy': 'Japanischer Jen',
 		'usd': 'US Dollar'
 	}
-	
+
+	// UI objects
 	var field_value = document.getElementById("value"); 
 	var field_init_currency = document.getElementById("init_currency");
 	var field_target_currency = document.getElementById("target_currency");
 	var text_errors = document.getElementById("errorhints");
-	var table_exchange_rates = document.getElementById("exchange_rates");
+	var tbody_exchange_rates = document.getElementById("exchange_rates");
 	var tbody_result = document.getElementById("result");
 	var tbody_history = document.getElementById("history");
 	var button_update_exchange_rates =  document.getElementById("update_exchange_rates");
 	
+	// Store last input values
 	var chosen_value = field_value.value;
 	var chosen_init_currency = field_init_currency.value;
 	var chosen_target_currency = field_target_currency.value;
 	
 	// Event Listeners
-	field_value.addEventListener("change", renderResult);
-	field_init_currency.addEventListener("change", renderResult);
-	field_target_currency.addEventListener("change", renderResult);
+	field_value.addEventListener("change", render_result);
+	field_init_currency.addEventListener("change", render_result);
+	field_target_currency.addEventListener("change", render_result);
 	button_update_exchange_rates.addEventListener("click", update_exchange_rates);
 	
 	//init
@@ -114,10 +117,10 @@
 	}
 
 	function render_exchange_rates() {
-		table_exchange_rates.innerHTML = '';
+		tbody_exchange_rates.innerHTML = '';
 		for (var exchange_rate of exchange_rates) {
 			render_table_row(
-				table_exchange_rates, 
+				tbody_exchange_rates, 
 				1, 
 				exchange_rate.init,
 				exchange_rate.target,
@@ -139,15 +142,14 @@
 		);
 	}
 
-	function renderResult() {
-				
+	function render_result() {
 		tbody_result.innerHTML = '';
 		tbody_result.parentNode.classList.add("hidden");
 		text_errors.textContent = '';
 		
 		get_field_values();
 
-		if (!validateFields()) {
+		if (!validate_fields()) {
 			text_errors.textContent = 'Bitte füllen Sie alle Felder mit realistischen Werten aus.';
 		}
 		else {
@@ -169,7 +171,7 @@
 					save_in_local_storage(exchange_rate);
 				} 
 				else {
-					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Wechselkurse vor.'
+					text_errors.textContent = 'Für diese Konstellation liegen uns aktuell keine Wechselkurse vor.';
 				}
 			}
 		}
@@ -189,7 +191,7 @@
 		chosen_target_currency = field_target_currency.value;
 	}
 	
-	function validateFields(){
+	function validate_fields(){
 		// validate required fields
 		var is_valid_number = false;
 		if (chosen_value > 0 && !isNaN(chosen_value)) {
@@ -225,7 +227,7 @@
 	}
 		
 	function calculate_result(exchange_rate) {
-		var t_product = chosen_value * exchange_rate.rate
+		var t_product = chosen_value * exchange_rate.rate;
 		return t_product.toFixed(2);
 	}
 
