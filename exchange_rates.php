@@ -9,6 +9,19 @@
 		array('init'=> 'gbp', 'target'=> 'cad', 'rate'=> 1.7374)
 	);
 
+	$counter = 0;
+	if (isset($_GET['counter'])) {
+		$counter = (int)$_GET['counter'];
+
+		if ($counter > 1) {
+			# simulate changing a random exchange rate
+			$number_of_exchange_rates = sizeof($exchange_rates);
+			$random_rate = rand(0,$number_of_exchange_rates-1);
+			$random_value = rand(0,1000)/1000;
+			$exchange_rates[$random_rate]['rate'] += $random_value; 
+		}
+	}
+
 	$action = '';
 	if (isset($_GET['action'])) {
 		$action = $_GET['action'];
