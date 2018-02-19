@@ -127,6 +127,9 @@
 	}
 
 	function render_table_row(table, value, init, target, result) {
+		value = value.toString().replace('.', ',')
+		result = result.toString().replace('.', ',');
+
 		var cell_init = '<td><div class="border flag_'+ init + '"></div></td><td>' + value + ' '+ init.toLocaleUpperCase()+'</td><td>&#8596;</td>';
 		var cell_target = '<td class="text-right">'+ result + ' ' + target.toLocaleUpperCase()+'</td><td><div class="border flag_'+ target +'"></div></td>';
 		var row = '<tr>'+cell_init + cell_target + '</tr>';
