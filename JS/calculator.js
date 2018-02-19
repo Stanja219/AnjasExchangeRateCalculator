@@ -121,7 +121,7 @@
 				1, 
 				exchange_rate.init,
 				exchange_rate.target,
-				exchange_rate.rate
+				exchange_rate.rate.toFixed(4)
 			)
 		}
 	}
